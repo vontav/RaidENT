@@ -1,25 +1,38 @@
-# project_code/data_collection.py
-import os
-import data_processing
+import requests
 import time
 import csv
 
-data_file_path = 'bitcoin_data.csv'  # CSV file in the same directory as the script
+def fetch_btc_price():
+    url = "https://www.mexc.com/open/api/v2/market/ticker"
+    params = {
+        "symbol": "btc_usdt"
+    }
 
-data_collection_interval = 300  # 5 minutes
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        if "data" in data and isinstance(data["data"], list) and len(data["data"]) > 0:
+            btc_price = data["data"][0].get("last")
+            return btc_price
+        else:
+            print("Invalid data format in API response.")
+            return None
+    else:
+        print("Failed to fetch Bitcoin price from MEXC.")
+        return None
 
-# Create the CSV file if it doesn't exist
-if not os.path.exists(data_file_path):
-    with open(data_file_path, 'w', newline='') as csv_file:
+def append_btc_price_to_csv(price, filename):
+    with open(filename, 'a', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
-        csv_writer.writerow(['Bitcoin Price'])
+        csv_writer.writerow([price])
 
-while True:
-    real_time_price = data_processing.fetch_real_time_price()
-    if real_time_price is not None:
-        with open(data_file_path, 'a', newline='') as csv_file:
-            csv_writer = csv.writer(csv_file)
-            csv_writer.writerow([real_time_price])
-        print("Real-time Bitcoin price:", real_time_price)
-    time.sleep(data_collection_interval)
+if __name__ == "__main__":
+    csv_filename = 'bitcoin_data.csv'
+
+    while True:
+        btc_price = fetch_btc_price()
+        if btc_price is not None:
+            print("Latest BTC Price:", btc_price)
+            append_btc_price_to_csv(btc_price, csv_filename)
+        time.sleep(60)  # Wait for 1 minute before the next request
 
