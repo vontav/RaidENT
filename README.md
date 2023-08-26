@@ -23,6 +23,7 @@ trying to predict bitcoin every 5 mins. Different models included. bad data set 
 Last Update: August 25th 2023
 
 working on:
+---------------------------
 -different time interval models
 -prediction aggregation
 -batch data
@@ -31,5 +32,6 @@ working on:
 -visualization
 -ensemble methods
 -top secret
+---------------------------
 
 
