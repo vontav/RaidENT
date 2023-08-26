@@ -1,4 +1,9 @@
 # RaidENT
+
+
+Usage
+cd to folder, then cd to project_code
+python main.py 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 key features of this model:
 
