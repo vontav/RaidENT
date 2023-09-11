@@ -17,10 +17,16 @@ The model is compiled using the Adam optimizer and mean squared error (MSE) loss
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-trying to predict bitcoin every 5 mins. Different models included. bad data set though and im collecting it every 5 mins. wish i had a live set, also more data besides just btc price. ensemble methods would be benificial. 
 
 
 Last Update: August 25th 2023
+
+----------
+
+-soft update was done to the data collector to begin splitting into different time intrevals. 
+-prime2.0 training model added aswell. 
+
+----------
 
 working on:
 ---------------------------
